@@ -1,0 +1,156 @@
+:root{
+    --cream:#f7f1e3;
+    --red:#c82424;
+    --brown:#b07a4a;
+    --text:#1f1f1f;
+}
+
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body{
+    margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;
+    color:var(--text); background:#fff;
+}
+
+.container{width:min(1100px,92%); margin:auto}
+
+/* NAV */
+.nav{
+    position:sticky; top:0; z-index:10;
+    background:#fff; border-bottom:1px solid #eee;
+}
+.nav-inner{display:flex; align-items:center; justify-content:space-between; padding:10px 0}
+.brand img{height:42px; display:block}
+.links a{
+    text-decoration:none; color:#444; margin-left:18px; font-weight:600;
+}
+.links a:hover{color:var(--red)}
+.links .ig{color:#fff; background:var(--red); padding:8px 12px; border-radius:999px}
+.links .ig:hover{opacity:.9}
+
+/* HERO */
+.hero {
+    position: relative;
+    min-height: 68vh;
+    background:
+            linear-gradient(0deg, rgba(255,255,255,.6), rgba(255,255,255,.6)),
+            url('/sorrentinos-nohechos.jpg');
+    background-size: cover;
+    background-position: center;
+    display: grid;
+    place-items: center;
+}
+
+
+.hero .overlay{display:none}
+.hero-content{text-align:center; padding:60px 0}
+.hero h1{font-size: clamp(28px, 6vw, 56px); margin:0; color:var(--red); letter-spacing:.5px}
+.hero p{margin:14px 0 26px; font-size:18px; color:#333}
+.cta{display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
+.btn{
+    display:inline-block; padding:12px 18px; border-radius:10px; text-decoration:none; font-weight:700
+}
+.btn.primary{background:var(--red); color:#fff}
+.btn.ghost{border:2px solid var(--red); color:var(--red); background:transparent}
+
+/* HIGHLIGHTS */
+.highlights{padding:48px 0}
+.highlights h2{margin:0 0 18px}
+.grid{
+    display:grid; gap:16px;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+}
+@media (max-width:900px){
+    .grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:600px){
+    .grid{grid-template-columns:1fr}
+}
+
+.card {
+    border: 1px solid #eee;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+}
+
+.card-content {
+    padding: 14px 16px;
+}
+
+.card h3 {
+    margin: 8px 0;
+    color: var(--red);
+}
+
+.card p {
+    margin: 4px 0;
+    color: #444;
+}
+
+.card .price {
+    font-weight: bold;
+    margin-top: 8px;
+    color: var(--brown);
+}
+
+
+/* FOOTER */
+.footer{margin-top:40px; background:var(--cream); border-top:1px solid #eee}
+.foot-grid{
+    display:grid; gap:18px; padding:28px 0;
+    grid-template-columns:1fr 1fr 1fr;
+}
+@media (max-width:800px){ .foot-grid{grid-template-columns:1fr 1fr} }
+@media (max-width:560px){ .foot-grid{grid-template-columns:1fr} }
+.footer h4{margin:0 0 8px; color:var(--brown)}
+.footer a{color:var(--red); font-weight:700; text-decoration:none}
+.copy{padding:12px 0; text-align:center; font-size:14px; color:#666; border-top:1px solid #e9e1cf}
+
+.clean-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.social {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.social:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+.social.instagram {
+    color: #e1306c;
+}
+
+.social.facebook {
+    color: #1877f2;
+}
+
