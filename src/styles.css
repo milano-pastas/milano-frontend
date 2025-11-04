@@ -154,3 +154,153 @@ body{
     color: #1877f2;
 }
 
+/* --- Dropdown secondary bar --- */
+.dropdown-bar {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    font-weight: 600;
+}
+
+.dropdown-root {
+    list-style: none;
+    margin: 0;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.dropdown-root > li {
+    position: relative;
+    padding: 12px 0;
+}
+
+.dropdown-root > li > span {
+    cursor: pointer;
+    color: #444;
+    transition: color 0.2s ease;
+}
+
+.dropdown-root > li > span:hover {
+    color: var(--red);
+}
+
+/* Nivel 1 (Pasta Fresca, Pasta Clásica...) */
+.dropdown-level {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    list-style: none;
+    padding: 6px 0;
+    min-width: 200px;
+    z-index: 10;
+}
+
+.dropdown-root > li:hover > .dropdown-level {
+    display: block;
+}
+
+.dropdown-level li {
+    position: relative;
+    padding: 0;
+}
+
+.dropdown-level > li > span {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    cursor: pointer;
+    color: #333;
+}
+
+.dropdown-level > li > span:hover {
+    background: var(--cream);
+    color: var(--red);
+}
+
+/* Nivel 2 (submenú lateral) */
+.dropdown-sublevel {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    list-style: none;
+    padding: 6px 0;
+    min-width: 200px;
+}
+
+.dropdown-level li:hover > .dropdown-sublevel {
+    display: block;
+}
+
+.dropdown-sublevel a {
+    display: block;
+    padding: 10px 14px;
+    color: #333;
+    text-decoration: none;
+}
+
+.dropdown-sublevel a:hover {
+    background: var(--cream);
+    color: var(--red);
+}
+
+
+/* --- Responsive general --- */
+img, video {
+    max-width: 100%;
+    height: auto;
+}
+
+.container {
+    width: 92%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Texto fluido */
+h1, h2, h3, p, a, button {
+    line-height: 1.3;
+    word-break: keep-all;
+}
+
+/* Hero más chico en móvil */
+@media (max-width: 600px) {
+    .hero { min-height: 55vh; background-position: top; }
+    .hero-content { padding: 40px 0; }
+    .hero p { font-size: 16px; }
+}
+
+/* Navbar: versión mobile con hamburguesa */
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    color: var(--red);
+    background: none;
+    border: none;
+}
+
+@media (max-width: 768px) {
+    .links {
+        display: none;
+        flex-direction: column;
+        background: #fff;
+        position: absolute;
+        top: 60px;
+        right: 10px;
+        border: 1px solid #eee;
+        border-radius: 10px;
+        padding: 12px;
+    }
+    .links.open { display: flex; }
+    .menu-toggle { display: block; }
+}
+

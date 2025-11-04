@@ -54,7 +54,7 @@ const Highlights = () => {
                                 <p className="price">
                                     ${parseFloat(p.price).toFixed(0)}{" "}
                                     <span className="unit">
-                                        {p.unit === "gr" ? "por 500 g" : `/ ${p.unit}`}
+                                        {`/ ${p.unit} gr`}
                                     </span>
                                 </p>
                             </div>

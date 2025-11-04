@@ -2,11 +2,13 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar.jsx";
 import Home from "./pages/Home.jsx";
+import DropdownMenu from "./components/DropdownMenu.jsx";
 
 export default function App() {
     return (
         <>
             <Navbar />
+            <DropdownMenu />
 
             <Routes>
                 <Route path="/" element={<Home />} />
