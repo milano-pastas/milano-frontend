@@ -1,36 +1,41 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar.jsx";
 import Home from "./pages/Home.jsx";
-import DropdownMenu from "./components/DropdownMenu.jsx";
+import Header from "./components/Header.jsx";
+import Catalog from "./pages/Catalog.jsx";
+
 
 export default function App() {
     return (
         <>
-            <Navbar />
-            <DropdownMenu />
-
+            <Header />
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/productos" element={<Catalog />} />
             </Routes>
 
             <footer id="contacto" className="footer">
                 <div className="container foot-grid">
                     <div>
                         <h4>Contacto</h4>
-                        <p>📞 Tel: <a href="tel:24801607" className="clean-link">2480 1607</a></p>
                         <p>
-                            📍{" "}
+                            <span className="icon"><i className="fas fa-phone"></i></span>
+                            Tel: <a href="tel:24801607">2480 1607</a>
+                        </p>
+                        <p>
+                            <span className="icon"><i className="fas fa-map-marker-alt"></i></span>
                             <a
                                 href="https://www.google.com/maps/place/Fabrica+de+Pastas+Milano/@-34.8826742,-56.1557937,17z"
                                 target="_blank"
                                 rel="noreferrer"
-                                className="clean-link"
                             >
-                                Av. 8 de Octubre 3084, 11600 Montevideo, Departamento de Montevideo
+                                Av. 8 de Octubre 3084, Montevideo
                             </a>
                         </p>
-                        <p>🕐 Horarios: Lun–Sáb 9:00–19:00</p>
+                        <p>
+                            <span className="icon"><i className="far fa-clock"></i></span>
+                            Lun–Sáb 9:00–19:00
+                        </p>
                     </div>
 
                     <div>
@@ -42,7 +47,7 @@ export default function App() {
                                 rel="noreferrer"
                                 className="social instagram"
                             >
-                                <i className="fa-brands fa-instagram"></i> Instagram
+                                <i className="fab fa-instagram"></i> Instagram
                             </a>
                             <a
                                 href="https://www.facebook.com/milanopastas/?locale=es_LA"
@@ -50,7 +55,7 @@ export default function App() {
                                 rel="noreferrer"
                                 className="social facebook"
                             >
-                                <i className="fa-brands fa-facebook"></i> Facebook
+                                <i className="fab fa-facebook"></i> Facebook
                             </a>
                         </div>
                     </div>

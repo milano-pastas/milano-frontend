@@ -1,295 +1,490 @@
-:root{
-    --cream:#f7f1e3;
-    --red:#c82424;
-    --brown:#b07a4a;
-    --text:#1f1f1f;
-}
-
-*{box-sizing:border-box}
-html,body,#root{height:100%}
-body{
-    margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;
-    color:var(--text); background:#fff;
-}
-
-.container{width:min(1100px,92%); margin:auto}
-
-/* NAV */
-.nav{
-    position:sticky; top:0; z-index:10;
-    background:#fff; border-bottom:1px solid #eee;
-}
-.nav-inner{display:flex; align-items:center; justify-content:space-between; padding:10px 0}
-.brand img{height:42px; display:block}
-.links a{
-    text-decoration:none; color:#444; margin-left:18px; font-weight:600;
-}
-.links a:hover{color:var(--red)}
-.links .ig{color:#fff; background:var(--red); padding:8px 12px; border-radius:999px}
-.links .ig:hover{opacity:.9}
-
-/* HERO */
-.hero {
-    position: relative;
-    min-height: 68vh;
-    background:
-            linear-gradient(0deg, rgba(255,255,255,.6), rgba(255,255,255,.6)),
-            url('/sorrentinos-nohechos.jpg');
-    background-size: cover;
-    background-position: center;
-    display: grid;
-    place-items: center;
+:root {
+    --cream: #f7f1e3;
+    --black: #1f1f1f;
+    --brown: #b07a4a;
+    --text: #1f1f1f;
+    --accent: var(--black);
 }
 
 
-.hero .overlay{display:none}
-.hero-content{text-align:center; padding:60px 0}
-.hero h1{font-size: clamp(28px, 6vw, 56px); margin:0; color:var(--red); letter-spacing:.5px}
-.hero p{margin:14px 0 26px; font-size:18px; color:#333}
-.cta{display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
-.btn{
-    display:inline-block; padding:12px 18px; border-radius:10px; text-decoration:none; font-weight:700
+* {
+    box-sizing: border-box;
 }
-.btn.primary{background:var(--red); color:#fff}
-.btn.ghost{border:2px solid var(--red); color:var(--red); background:transparent}
-
-/* HIGHLIGHTS */
-.highlights{padding:48px 0}
-.highlights h2{margin:0 0 18px}
-.grid{
-    display:grid; gap:16px;
-    grid-template-columns: repeat(3, minmax(0,1fr));
+html,
+body,
+#root {
+    height: 100%;
 }
-@media (max-width:900px){
-    .grid{grid-template-columns:1fr 1fr}
-}
-@media (max-width:600px){
-    .grid{grid-template-columns:1fr}
-}
-
-.card {
-    border: 1px solid #eee;
-    border-radius: 14px;
-    overflow: hidden;
-    background: #fff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    transition: transform .2s ease, box-shadow .2s ease;
-}
-
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.08);
-}
-
-.card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-bottom: 1px solid #eee;
-}
-
-.card-content {
-    padding: 14px 16px;
-}
-
-.card h3 {
-    margin: 8px 0;
-    color: var(--red);
-}
-
-.card p {
-    margin: 4px 0;
-    color: #444;
-}
-
-.card .price {
-    font-weight: bold;
-    margin-top: 8px;
-    color: var(--brown);
-}
-
-
-/* FOOTER */
-.footer{margin-top:40px; background:var(--cream); border-top:1px solid #eee}
-.foot-grid{
-    display:grid; gap:18px; padding:28px 0;
-    grid-template-columns:1fr 1fr 1fr;
-}
-@media (max-width:800px){ .foot-grid{grid-template-columns:1fr 1fr} }
-@media (max-width:560px){ .foot-grid{grid-template-columns:1fr} }
-.footer h4{margin:0 0 8px; color:var(--brown)}
-.footer a{color:var(--red); font-weight:700; text-decoration:none}
-.copy{padding:12px 0; text-align:center; font-size:14px; color:#666; border-top:1px solid #e9e1cf}
-
-.clean-link {
-    color: inherit;
-    text-decoration: none;
-}
-
-.social-links {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.social {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.social:hover {
-    opacity: 0.85;
-    transform: translateY(-1px);
-}
-
-.social.instagram {
-    color: #e1306c;
-}
-
-.social.facebook {
-    color: #1877f2;
-}
-
-/* --- Dropdown secondary bar --- */
-.dropdown-bar {
-    background: #fff;
-    border-bottom: 1px solid #eee;
-    font-weight: 600;
-}
-
-.dropdown-root {
-    list-style: none;
+body {
     margin: 0;
-    padding: 0 24px;
+    font-family: 'Comfortaa', 'Lato', sans-serif;
+    color: var(--text);
+    background: #fff;
+    letter-spacing: 0.3px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* ===================== */
+/*        NAVBAR         */
+/* ===================== */
+.nav {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background: transparent;
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+.nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+}
+
+.brand img {
+    height: 56px;
+    transition: transform 0.2s ease;
+}
+.brand img:hover {
+    transform: scale(1.05);
+}
+
+.top-nav {
     display: flex;
     align-items: center;
     gap: 24px;
 }
 
-.dropdown-root > li {
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 24px;
+}
+
+.nav-links > li {
     position: relative;
-    padding: 12px 0;
 }
 
-.dropdown-root > li > span {
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+.nav-links a:hover {
+    color: var(--cream);
+}
+
+
+/* Instagram button */
+.ig {
+    color: white;
+    background: var(--accent);
+    padding: 8px 14px;
+    border-radius: 999px;
+    text-decoration: none;
+}
+.ig:hover {
+    background: #a61919;
+}
+
+/* ===================== */
+/*        DROPDOWN       */
+/* ===================== */
+.has-dropdown > span {
     cursor: pointer;
-    color: #444;
-    transition: color 0.2s ease;
+    color: white;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+.has-dropdown > span::after {
+    content: ' ▾';
+    font-size: 0.8em;
+    margin-left: 4px;
 }
 
-.dropdown-root > li > span:hover {
-    color: var(--red);
-}
-
-/* Nivel 1 (Pasta Fresca, Pasta Clásica...) */
 .dropdown-level {
     display: none;
     position: absolute;
     top: 100%;
     left: 0;
-    background: #fff;
-    border: 1px solid #ddd;
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid #ccc;
     border-radius: 6px;
-    list-style: none;
     padding: 6px 0;
     min-width: 200px;
-    z-index: 10;
+    z-index: 1000;
 }
-
-.dropdown-root > li:hover > .dropdown-level {
+.has-dropdown:hover > .dropdown-level {
     display: block;
 }
 
 .dropdown-level li {
     position: relative;
-    padding: 0;
 }
-
 .dropdown-level > li > span {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 14px;
+    color: white;
     cursor: pointer;
-    color: #333;
 }
-
 .dropdown-level > li > span:hover {
     background: var(--cream);
-    color: var(--red);
+    color: var(--text);
+}
+.dropdown-level > li > span::after {
+    content: ' ▸';
+    font-size: 0.8em;
+    margin-left: auto;
 }
 
-/* Nivel 2 (submenú lateral) */
+/* Submenu */
 .dropdown-sublevel {
     display: none;
     position: absolute;
     top: 0;
     left: 100%;
-    background: #fff;
-    border: 1px solid #ddd;
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid #ccc;
     border-radius: 6px;
-    list-style: none;
     padding: 6px 0;
     min-width: 200px;
+    z-index: 1000;
 }
-
 .dropdown-level li:hover > .dropdown-sublevel {
     display: block;
 }
-
 .dropdown-sublevel a {
     display: block;
     padding: 10px 14px;
-    color: #333;
+    color: white;
+    text-decoration: none;
+}
+.dropdown-sublevel a:hover {
+    background: var(--cream);
+    color: var(--text);
+}
+
+.dropdown-level > li > a {
+    display: block;
+    padding: 10px 14px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.dropdown-level > li > a:hover {
+    background: var(--cream);
+    color: var(--text);
+}
+
+.nav-links li,
+.dropdown-level li,
+.dropdown-sublevel li {
+    list-style: none;
+}
+
+/* ===================== */
+/*        HERO           */
+/* ===================== */
+.hero {
+    position: relative;
+    height: 100vh;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url('/sorrentinos-nohechos.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 2rem;
+    color: white;
+}
+.hero h1 {
+    font-size: clamp(28px, 6vw, 56px);
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+.hero p {
+    margin: 16px 0 30px;
+    font-size: 20px;
+}
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+}
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+}
+.cta .btn {
+    padding: 12px 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: 2px solid white;
+    background: transparent;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+.cta .btn:hover {
+    background: white;
+    color: #000;
+}
+
+.cta {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+
+/* ===================== */
+/*       HIGHLIGHTS      */
+/* ===================== */
+.highlights {
+    padding: 48px 0;
+}
+.highlights h2 {
+    margin: 0 0 18px;
+}
+.grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+@media (max-width: 900px) {
+    .grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media (max-width: 600px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.card {
+    border: none;
+    border-radius: 0; /* Sharp edges */
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 350px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 18px 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card h3 {
+    margin: 0 0 6px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.card p {
+    margin: 4px 0;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.card .price {
+    margin-top: auto;
+    font-weight: 700;
+    color: var(--brown);
+}
+
+/* Zebra theme — alternate light/dark cards */
+.grid .card-with-tooltip:nth-child(odd) .card {
+    background: var(--accent);
+    color: white;
+}
+
+.grid .card-with-tooltip:nth-child(odd) .card h3 {
+    color: white;
+}
+
+.grid .card-with-tooltip:nth-child(even) .card {
+    background: white;
+    color: var(--text);
+}
+
+.grid .card-with-tooltip:nth-child(even) .card h3 {
+    color: var(--accent);
+}
+
+.view-more {
+    margin-top: 32px;
+    text-align: center;
+}
+
+.view-more .btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border: 2px solid var(--accent);
+    background: transparent;
+    color: var(--accent);
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-radius: 0;
+    font-family: 'Lato', sans-serif;
+}
+
+.view-more .btn:hover {
+    background: var(--accent);
+    color: white;
+}
+
+.catalog h2 {
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 16px;
+}
+
+/* ===================== */
+/*        FOOTER         */
+/* ===================== */
+.footer {
+    margin-top: 60px;
+    background: var(--cream);
+    padding: 40px 0;
+    color: var(--text);
+    font-family: 'Lato', sans-serif;
+    border-top: 1px solid #e0d9cc;
+}
+
+.foot-grid {
+    display: grid;
+    gap: 36px;
+    padding-bottom: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.footer h4 {
+    margin: 0 0 14px;
+    color: var(--black);
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+}
+
+.footer p,
+.footer a {
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.5;
     text-decoration: none;
 }
 
-.dropdown-sublevel a:hover {
-    background: var(--cream);
-    color: var(--red);
+.footer a:hover {
+    text-decoration: underline;
 }
 
+.copy {
+    padding-top: 16px;
+    border-top: 1px solid #e0d9cc;
+    font-size: 13px;
+    text-align: center;
+    color: #888;
+}
 
-/* --- Responsive general --- */
-img, video {
+/* Icon-like prefixes using Unicode or Font Awesome */
+.footer .icon {
+    margin-right: 6px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.catalog-hero {
+    background: var(--black);
+    color: white;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.catalog-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    margin-bottom: 24px;
+}
+
+.catalog-hero .btn.ghost {
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    font-weight: 700;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.catalog-hero .btn.ghost:hover {
+    background: white;
+    color: black;
+}
+
+/* ===================== */
+/*     RESPONSIVE        */
+/* ===================== */
+img,
+video {
     max-width: 100%;
     height: auto;
 }
-
-.container {
-    width: 92%;
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-/* Texto fluido */
-h1, h2, h3, p, a, button {
+h1,
+h2,
+h3,
+p,
+a,
+button {
     line-height: 1.3;
     word-break: keep-all;
 }
-
-/* Hero más chico en móvil */
-@media (max-width: 600px) {
-    .hero { min-height: 55vh; background-position: top; }
-    .hero-content { padding: 40px 0; }
-    .hero p { font-size: 16px; }
-}
-
-/* Navbar: versión mobile con hamburguesa */
-.menu-toggle {
-    display: none;
-    font-size: 1.5rem;
-    color: var(--red);
-    background: none;
-    border: none;
-}
-
 @media (max-width: 768px) {
-    .links {
+    .menu-toggle {
+        display: block;
+    }
+    .nav-links {
         display: none;
         flex-direction: column;
         background: #fff;
@@ -300,7 +495,508 @@ h1, h2, h3, p, a, button {
         border-radius: 10px;
         padding: 12px;
     }
-    .links.open { display: flex; }
-    .menu-toggle { display: block; }
+    .nav-links.open {
+        display: flex;
+    }
+}
+
+/* Mobile menu toggle */
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    color: var(--accent);
+    background: none;
+    border: none;
+}
+
+/* ===================== */
+/*     SOCIAL LINKS      */
+/* ===================== */
+.social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.social {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.social:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+.social.instagram {
+    color: #e1306c;
+}
+.social.facebook {
+    color: #1877f2;
+}
+
+.card-with-tooltip {
+    position: relative;
+    overflow: visible;
+}
+
+/* Tooltip principal */
+.sabores-tooltip {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%) translateX(12px);
+    width: 240px;
+    min-height: 100px;
+    max-height: 180px;
+    background: var(--black);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 0;
+    padding: 16px 18px;
+    display: none;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    pointer-events: none;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+    white-space: normal;
+    max-width: 260px;
+}
+
+/* Mostrar tooltip */
+.card-with-tooltip:hover .sabores-tooltip {
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    transform: translateY(-50%) translateX(8px);
+}
+
+/* Evitar que el tooltip cause scroll horizontal */
+.grid {
+    overflow-x: hidden;
+}
+
+/* Si la card está muy a la derecha del viewport, mostrar el tooltip hacia la izquierda */
+@media (min-width: 769px) {
+    .card-with-tooltip:hover .sabores-tooltip {
+        right: auto;
+        left: 100%;
+    }
+
+    /* Si el tooltip saldría del viewport, invertir lado */
+    .card-with-tooltip:last-child:hover .sabores-tooltip,
+    .grid .card-with-tooltip:nth-child(3n):hover .sabores-tooltip {
+        left: auto;
+        right: 100%;
+        transform: translateY(-50%) translateX(-8px);
+    }
+}
+
+/* Tipografía coherente */
+.sabores-tooltip strong {
+    font-family: 'Playfair Display', serif;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.sabores-tooltip pre {
+    font-family: 'Lato', sans-serif;
+    color: white;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-y: auto;
+    max-height: 100px;
+}
+
+h1, h2, h3, h4, h5, h6,
+p, a, button,
+.nav-links a, .btn, .card-content,
+.sabores-tooltip strong, .sabores-tooltip pre,
+.footer, .copy {
+    font-family: 'Comfortaa', 'Lato', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+}
+
+p, a, button, .card p, .sabores-tooltip pre {
+    font-weight: 400;
+}
+
+/* ===================== */
+/*        NAVBAR         */
+/* ===================== */
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 0.8rem 3rem;
+    display: flex;
+    align-items: center;
+}
+
+/* Logo */
+.brand {
+    flex: 0 0 auto;
+}
+.brand img {
+    height: 130px;
+    width: auto;
+    display: block;
+    transition: transform 0.2s ease;
+}
+.brand img:hover {
+    transform: scale(1.03);
+}
+
+/* Contenedor general de navegación */
+.nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Menú alineado completamente a la derecha */
+.nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 30px;
+    margin-left: auto;
+    list-style: none;
+}
+
+/* 🔸 Texto visible sobre fondo blanco */
+.nav-links a,
+.has-dropdown > span {
+    color: var(--black);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.2s ease;
+}
+.nav-links a:hover,
+.has-dropdown > span:hover {
+    color: var(--brown);
+}
+
+/* Dropdowns */
+.dropdown-level,
+.dropdown-sublevel {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 6px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.dropdown-level a,
+.dropdown-sublevel a,
+.dropdown-level > li > span {
+    color: var(--black);
+    display: block;
+    text-decoration: none;
+    padding: 10px 16px;
+}
+.dropdown-level > li > span:hover,
+.dropdown-level a:hover,
+.dropdown-sublevel a:hover {
+    background: var(--cream);
+    color: var(--black);
+}
+
+/* 🔸 Indicador de submenú */
+.has-dropdown > span::after {
+    content: ' ▾';
+    font-size: 0.8em;
+    margin-left: 4px;
+}
+
+/* Botón Instagram */
+.ig {
+    color: white;
+    background: var(--brown);
+    padding: 10px 20px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+.ig:hover {
+    background: #8d5f3b;
+}
+
+/* ===================== */
+/*     BODY OFFSET       */
+/* ===================== */
+body {
+    padding-top: 150px;
+}
+
+/* ===================== */
+/* RESPONSIVE NAVBAR     */
+/* ===================== */
+@media (max-width: 900px) {
+    .brand img {
+        height: 100px;
+    }
+    .nav {
+        padding: 0.8rem 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+        font-size: 1.6rem;
+        color: var(--black);
+        background: none;
+        border: none;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        background: white;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 16px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    .nav-links a,
+    .has-dropdown > span {
+        color: var(--black);
+    }
+}
+
+/* ===================== */
+/* 🔧 FIX VISIBILIDAD TEXTO NAVBAR */
+/* ===================== */
+.nav-links a,
+.has-dropdown > span,
+.dropdown-level a,
+.dropdown-level > li > span,
+.dropdown-sublevel a {
+    color: var(--black) !important;
+    font-weight: 600;
+    text-decoration: none;
+    font-family: 'Comfortaa', 'Lato', sans-serif !important;
+}
+
+.nav-links a:hover,
+.has-dropdown > span:hover,
+.dropdown-level > li > span:hover,
+.dropdown-level a:hover,
+.dropdown-sublevel a:hover {
+    color: var(--brown) !important;
+    background: var(--cream) !important;
+}
+
+/* ===================== */
+/*      MOBILE MENU      */
+/* ===================== */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 80px 24px;
+    z-index: 2000;
+    overflow-y: auto;
+}
+.mobile-menu-overlay.open {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.mobile-menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    margin-bottom: 30px;
+}
+.mobile-menu-header button {
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    color: var(--black);
+    cursor: pointer;
+    margin-right: 10px;
+}
+.mobile-menu-header h3 {
+    margin: 0;
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: 700;
+}
+
+.mobile-menu-item {
+    font-size: 20px;
+    font-weight: 600;
+    padding: 14px 0;
+    color: var(--black);
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    background: none;
+    border: none;
+    text-align: left;
+}
+.mobile-menu-item:hover {
+    color: var(--brown);
+}
+
+.mobile-subcategory h4 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 16px 0 8px;
+    color: var(--brown);
+}
+
+/* Navbar layout on mobile */
+@media (max-width: 768px) {
+    .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1rem;
+    }
+
+    .menu-toggle {
+        display: block;
+        font-size: 1.8rem;
+        color: var(--black);
+        background: none;
+        border: none;
+    }
+
+    .brand {
+        margin-left: auto;
+    }
+
+    .nav-links {
+        display: none;
+    }
+}
+
+/* Ajuste margen del texto “Nuestros clásicos” */
+@media (max-width: 768px) {
+    #productos h2 {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
+
+/* ===================== */
+/*     FIX SUBMENUS      */
+/* ===================== */
+.mobile-subcategory {
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.mobile-subcategory h4 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--brown);
+}
+
+.mobile-subcategory a {
+    display: block;
+    text-decoration: none;  /* 🔸 elimina el subrayado */
+    color: var(--black);
+    font-size: 18px;
+    padding: 6px 0;
+}
+
+.mobile-subcategory a:hover {
+    color: var(--brown);
+}
+
+/* ===================== */
+/*  NO UNDERLINE GENERAL */
+/* ===================== */
+.mobile-menu-item {
+    text-decoration: none;
+}
+
+/* ===================== */
+/*   RESPONSIVE FIXES    */
+/* ===================== */
+@media (max-width: 768px) {
+    /* márgenes laterales uniformes */
+    #productos h2,
+    #productos p,
+    .highlights p {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    /* mensaje de advertencia centrado */
+    .highlights p {
+        text-align: left;
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+
+    /* separaciones verticales más cómodas */
+    .mobile-menu-item {
+        padding: 12px 0;
+        display: block;
+    }
+
+    .mobile-menu-header h3 {
+        font-size: 20px;
+    }
+}
+/* ===================== */
+/*     LOGO EN MÓVIL     */
+/* ===================== */
+@media (max-width: 768px) {
+    .brand img {
+        height: 70px !important;   /* 🔸 antes estaba en 130px */
+        width: auto;
+    }
+
+    .nav {
+        padding: 0.6rem 1rem;       /* un poco menos de padding */
+    }
+
+    .nav-inner {
+        align-items: center;
+    }
+
+    .menu-toggle {
+        font-size: 1.8rem;
+    }
 }
 

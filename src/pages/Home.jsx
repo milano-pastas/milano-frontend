@@ -20,11 +20,11 @@ const Highlights = () => {
     useEffect(() => {
         const apiUrl = `${import.meta.env.VITE_API_URL}/api/products`;
         fetch(apiUrl)
-            .then(res => {
+            .then((res) => {
                 if (!res.ok) throw new Error(`Error HTTP ${res.status}`);
                 return res.json();
             })
-            .then(data => {
+            .then((data) => {
                 setProducts(Array.isArray(data) ? data : []);
                 setLoading(false);
             })
@@ -39,32 +39,61 @@ const Highlights = () => {
             ) : products.length === 0 ? (
                 <p>⚠️ No hay productos disponibles.</p>
             ) : (
-                <div className="grid">
-                    {products.map((p) => (
-                        <article key={p.id} className="card">
-                            <img
-                                src={p.imageUrl?.trim()
-                                    ? p.imageUrl
-                                    : "https://images.unsplash.com/photo-1617196034796-73e4c6d74c5d?q=80&w=800&auto=format&fit=crop"}
-                                alt={p.name}
-                            />
-                            <div className="card-content">
-                                <h3>{p.name}</h3>
-                                <p>{p.description}</p>
-                                <p className="price">
-                                    ${parseFloat(p.price).toFixed(0)}{" "}
-                                    <span className="unit">
-                                        {`/ ${p.unit} gr`}
-                                    </span>
-                                </p>
+                <>
+                    <div className="grid">
+                        {products.slice(0, 6).map((p, index) => (
+                            <div key={p.id} className="card-with-tooltip">
+                                <article className="card">
+                                    <img
+                                        src={
+                                            p.imageUrl?.trim()
+                                                ? p.imageUrl
+                                                : "https://images.unsplash.com/photo-1617196034796-73e4c6d74c5d?q=80&w=800&auto=format&fit=crop"
+                                        }
+                                        alt={p.name}
+                                    />
+                                    <div className="card-content">
+                                        <h3>{p.name}</h3>
+                                        <p>{p.description}</p>
+                                        <p className="price">
+                                            ${parseFloat(p.price).toFixed(0)}
+                                            <span className="unit">
+                                                {" "}
+                                                /{" "}
+                                                {p.unit == null || p.unit === "" ? (
+                                                    "kg"
+                                                ) : parseFloat(p.unit) === 1 ? (
+                                                    "unidad"
+                                                ) : isNaN(parseFloat(p.unit)) ? (
+                                                    p.unit // por si viene texto tipo “500gr”
+                                                ) : (
+                                                    `${p.unit} unidades`
+                                                )}
+                                            </span>
+                                        </p>
+                                    </div>
+                                </article>
+                                {p.sabores && (
+                                    <div className="sabores-tooltip">
+                                        <strong>Sabores</strong>
+                                        <pre>{p.sabores}</pre>
+                                    </div>
+                                )}
                             </div>
-                        </article>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+
+                    <div className="view-more">
+                        <a href="/productos" className="btn ghost">
+                            VER MÁS PRODUCTOS
+                        </a>
+                    </div>
+                </>
             )}
         </section>
     );
 };
+
 
 const About = () => (
     <section id="historia" className="about container">
