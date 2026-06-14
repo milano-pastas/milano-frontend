@@ -1,21 +1,16 @@
 import React, { useEffect } from "react";
 import { useCart } from "../context/CartContext";
+import { formatCartQty } from "./QuantityPicker";
 
 const WHATSAPP = "59897389216";
 
-function formatUnit(unit) {
-    if (!unit || unit.trim() === "") return "kg";
-    if (parseFloat(unit) === 1) return "unidad";
-    if (isNaN(parseFloat(unit))) return unit;
-    return `${unit} unid.`;
-}
-
 function buildWhatsAppUrl(items, total) {
-    const lines = items.map(i =>
-        `• ${i.name} x${i.qty}  —  $${(parseFloat(i.price) * i.qty).toFixed(0)}`
-    );
+    const lines = items.map(i => {
+        const name = i.sabor ? `${i.name} de ${i.sabor.toLowerCase()}` : i.name;
+        return `• ${name} × ${formatCartQty(i.qty, i.unit)}  —  $${(parseFloat(i.price) * i.qty).toFixed(0)}`;
+    });
     const msg = [
-        "Hola! Quisiera hacer el siguiente pedido 🍝",
+        "Hola! Quisiera hacer el siguiente pedido.",
         "",
         ...lines,
         "",
@@ -65,12 +60,17 @@ export default function Cart() {
                     ) : (
                         <ul className="cart-items">
                             {items.map(item => (
-                                <li key={item.id} className="cart-item">
+                                <li key={item.cartKey} className="cart-item">
                                     <div className="cart-item-top">
-                                        <span className="cart-item-name">{item.name}</span>
+                                        <div>
+                                            <span className="cart-item-name">{item.name}</span>
+                                            {item.sabor && (
+                                                <span className="cart-item-sabor">{item.sabor}</span>
+                                            )}
+                                        </div>
                                         <button
                                             className="cart-remove"
-                                            onClick={() => removeItem(item.id)}
+                                            onClick={() => removeItem(item.cartKey)}
                                             aria-label={`Eliminar ${item.name}`}
                                         >
                                             <i className="fas fa-trash-can"></i>
@@ -78,9 +78,9 @@ export default function Cart() {
                                     </div>
                                     <div className="cart-item-bottom">
                                         <div className="cart-qty">
-                                            <button onClick={() => changeQty(item.id, -1)} aria-label="Restar cantidad">−</button>
-                                            <span>{item.qty} {formatUnit(item.unit)}</span>
-                                            <button onClick={() => changeQty(item.id, +1)} aria-label="Sumar cantidad">+</button>
+                                            <button onClick={() => changeQty(item.cartKey, -1)} aria-label="Restar cantidad">−</button>
+                                            <span>{formatCartQty(item.qty, item.unit)}</span>
+                                            <button onClick={() => changeQty(item.cartKey, +1)} aria-label="Sumar cantidad">+</button>
                                         </div>
                                         <span className="cart-item-price">
                                             ${(parseFloat(item.price) * item.qty).toFixed(0)}
