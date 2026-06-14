@@ -1,16 +1,46 @@
-# React + Vite
+# Milano Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Public-facing website for the Milano Pastas platform.
 
-Currently, two official plugins are available:
+This frontend provides the external web presence of the business, showcasing company information, products, branding, and contact details for customers and visitors.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Responsive business website  
+- Product showcase / catalog presentation  
+- Company branding and informational pages  
+- Contact / customer-facing interface  
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+- React  
+- Vite  
+- JavaScript  
+- CSS / Tailwind / UI Libraries
+
+---
+
+## Purpose
+
+Designed to provide Milano Pastas with a modern digital presence while integrating seamlessly with the broader business platform ecosystem.
+
+---
+
+## Run Locally
+
+```bash
+npm install
+npm run dev
+```
+
+---
+
+## Status
+
+In development / Not yet deployed.
+
+---
