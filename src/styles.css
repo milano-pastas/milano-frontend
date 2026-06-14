@@ -863,7 +863,7 @@ body {
 .mobile-menu-header {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     width: 100%;
     margin-bottom: 30px;
 }
@@ -962,6 +962,22 @@ body {
 
 .mobile-subcategory a:hover {
     color: var(--brown);
+}
+
+.mobile-subcategory h4 a {
+    color: var(--brown);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.mobile-menu-item.ver-todo {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--brown);
+    text-decoration: underline;
+    padding: 4px 0;
 }
 
 /* ===================== */
@@ -1499,6 +1515,53 @@ body {
         font-size: 20px;
     }
 }
+/* ===================== */
+/*   CARDS EN MÓVIL      */
+/* ===================== */
+@media (max-width: 600px) {
+    .card {
+        min-height: unset;
+    }
+
+    .card img {
+        height: 160px;
+    }
+
+    .card-content {
+        padding: 14px 16px;
+    }
+
+    .card h3 {
+        font-size: 18px;
+        margin-bottom: 2px;
+    }
+
+    .card-category {
+        margin-bottom: 4px;
+    }
+
+    .card p {
+        font-size: 13px;
+    }
+
+    .card .price {
+        font-size: 15px;
+    }
+
+    .add-to-cart-btn {
+        font-size: 11px;
+        padding: 10px 12px;
+    }
+
+    .qty-label {
+        font-size: 13px;
+    }
+
+    .qty-confirm {
+        font-size: 10px;
+    }
+}
+
 /* ===================== */
 /*     LOGO EN MÓVIL     */
 /* ===================== */

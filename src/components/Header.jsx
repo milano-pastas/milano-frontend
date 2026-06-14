@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from "react";
 
+const NAV_CAT_KEY = {
+    "Pasta Fresca":       "PASTA_FRESCA",
+    "Pasta Seca":         "PASTA_SECA",
+    "Comidas Preparadas": "COMIDAS_PREPARADAS",
+    Salsas:               "SALSAS",
+    Postres:              "POSTRES",
+    Bebidas:              "BEBIDAS",
+};
+
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [submenu, setSubmenu] = useState(null);
+    const [submenu, setSubmenu]   = useState(null);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-    const [dark, setDark] = useState(() => localStorage.getItem("theme") === "dark");
+    const [dark, setDark]         = useState(() => localStorage.getItem("theme") === "dark");
 
     useEffect(() => {
         const handler = () => setIsMobile(window.innerWidth <= 768);
@@ -19,41 +28,30 @@ export default function Header() {
 
     const categories = {
         Pastas: {
-            "Pasta Fresca": ["Laminada", "Rellena", "Prensa", "Artesanal", "Masas"],
-            "Pasta Seca": ["Tallarines", "Moñas", "Moñitas"],
+            "Pasta Fresca": ["Ñoqui", "Ravioles", "Romanitos", "Sorrentinos", "Capeletis", "Canelones", "Lasaña"],
+            "Pasta Seca":   ["Tallarines", "Moñas", "Moñitas"],
         },
-        "Comidas Preparadas": ["Rotisería", "Pastas prontas", "Pizza", "Empanadas"],
-        Salsas: [
-            "Caruso",
-            "Queso",
-            "Puerro",
-            "Rosa",
-            "Pesto",
-            "Tuco de carne",
-            "Tuco de pollo",
-            "Pomarola",
-        ],
-        Postres: ["Helados", "Pastelería", "Panadería"],
-        Bebidas: ["Refrescos", "Aguas", "Vinos"],
+        "Comidas Preparadas": ["Empanadas", "Pizza", "Rotisería"],
+        Salsas:  ["Salsa carusso", "Salsa de queso", "Salsa pesto", "Tuco de carne", "Tuco de pollo", "Pomarola"],
+        Postres: ["Torta de ricota", "Helados", "Panadería"],
+        Bebidas: ["Agua mineral", "Refrescos", "Vinos"],
     };
+
+    const catUrl = (cat) => `/productos?cat=${NAV_CAT_KEY[cat] || cat.toUpperCase().replace(/ /g, "_")}`;
 
     return (
         <header className="nav">
             <div className="nav-inner">
                 {isMobile ? (
                     <>
-                        {/* 🔸 Modo móvil */}
-                        <button className="menu-toggle" onClick={() => setMenuOpen(true)}>
-                            ☰
-                        </button>
+                        <button className="menu-toggle" onClick={() => setMenuOpen(true)}>☰</button>
                         <div className="brand">
                             <a href="/">
                                 <img src={dark ? "/milano-pastas-logo-inverted.jpg" : "/milano-pastas-logo.jpg"} alt="Milano Pastas" />
                             </a>
                         </div>
-                        <button className="theme-toggle" onClick={() => setDark(d => !d)} aria-label="Cambiar tema">
-                            <i className={`fas fa-${dark ? "sun" : "moon"}`}></i>
-                        </button>
+                        {/* espacio vacío para centrar el logo */}
+                        <div style={{ width: 40 }} />
 
                         <div className={`mobile-menu-overlay ${menuOpen ? "open" : ""}`}>
                             {submenu ? (
@@ -61,31 +59,46 @@ export default function Header() {
                                     <div className="mobile-menu-header">
                                         <button onClick={() => setSubmenu(null)}>←</button>
                                         <h3>{submenu}</h3>
+                                        <div style={{ width: 36 }} />
                                     </div>
                                     {Array.isArray(categories[submenu])
                                         ? categories[submenu].map((item) => (
                                             <a
                                                 key={item}
-                                                href={`/productos?cat=${submenu.toUpperCase()}`}
+                                                href={catUrl(submenu)}
                                                 className="mobile-menu-item"
-                                                onClick={() => setMenuOpen(false)}
+                                                onClick={() => { setMenuOpen(false); setSubmenu(null); }}
                                             >
                                                 {item}
                                             </a>
                                         ))
                                         : Object.entries(categories[submenu]).map(([subcat, items]) => (
                                             <div key={subcat} className="mobile-subcategory">
-                                                <h4>{subcat}</h4>
+                                                <h4>
+                                                    <a
+                                                        href={catUrl(subcat)}
+                                                        onClick={() => { setMenuOpen(false); setSubmenu(null); }}
+                                                    >
+                                                        {subcat}
+                                                    </a>
+                                                </h4>
                                                 {items.map((i) => (
                                                     <a
                                                         key={i}
-                                                        href={`/productos?cat=${submenu.toUpperCase()}`}
+                                                        href={catUrl(subcat)}
                                                         className="mobile-menu-item"
-                                                        onClick={() => setMenuOpen(false)}
+                                                        onClick={() => { setMenuOpen(false); setSubmenu(null); }}
                                                     >
                                                         {i}
                                                     </a>
                                                 ))}
+                                                <a
+                                                    href={catUrl(subcat)}
+                                                    className="mobile-menu-item ver-todo"
+                                                    onClick={() => { setMenuOpen(false); setSubmenu(null); }}
+                                                >
+                                                    Ver todo
+                                                </a>
                                             </div>
                                         ))}
                                 </>
@@ -94,6 +107,13 @@ export default function Header() {
                                     <div className="mobile-menu-header">
                                         <button onClick={() => setMenuOpen(false)}>✕</button>
                                         <h3>Menú</h3>
+                                        <button
+                                            className="theme-toggle"
+                                            onClick={() => setDark(d => !d)}
+                                            aria-label="Cambiar tema"
+                                        >
+                                            <i className={`fas fa-${dark ? "sun" : "moon"}`}></i>
+                                        </button>
                                     </div>
                                     {Object.keys(categories).map((cat) => (
                                         <button
@@ -118,7 +138,6 @@ export default function Header() {
                     </>
                 ) : (
                     <>
-                        {/* 🔸 Modo desktop */}
                         <div className="brand">
                             <a href="/">
                                 <img src={dark ? "/milano-pastas-logo-inverted.jpg" : "/milano-pastas-logo.jpg"} alt="Milano Pastas" />
@@ -133,7 +152,7 @@ export default function Header() {
                                         {Array.isArray(categories[cat])
                                             ? categories[cat].map((i) => (
                                                 <li key={i}>
-                                                    <a href={`/productos?cat=${cat.toUpperCase()}`}>{i}</a>
+                                                    <a href={catUrl(cat)}>{i}</a>
                                                 </li>
                                             ))
                                             : Object.entries(categories[cat]).map(([subcat, items]) => (
@@ -142,7 +161,7 @@ export default function Header() {
                                                     <ul className="dropdown-sublevel">
                                                         {items.map((i) => (
                                                             <li key={i}>
-                                                                <a href={`/productos?cat=${cat.toUpperCase()}`}>{i}</a>
+                                                                <a href={catUrl(subcat)}>{i}</a>
                                                             </li>
                                                         ))}
                                                     </ul>
@@ -151,12 +170,7 @@ export default function Header() {
                                     </ul>
                                 </li>
                             ))}
-                            <a
-                                className="ig"
-                                href="https://www.instagram.com/milano_pastas_/"
-                                target="_blank"
-                                rel="noreferrer"
-                            >
+                            <a className="ig" href="https://www.instagram.com/milano_pastas_/" target="_blank" rel="noreferrer">
                                 Instagram
                             </a>
                             <button className="theme-toggle" onClick={() => setDark(d => !d)} aria-label="Cambiar tema">
