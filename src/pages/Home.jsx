@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useCart } from "../context/CartContext";
+import QuantityPicker from "../components/QuantityPicker";
+import { getHighlights } from "../utils/productUtils";
+import { CATEGORY_LABEL } from "../data";
 
 const Hero = () => (
     <section className="hero">
@@ -11,67 +14,61 @@ const Hero = () => (
 );
 
 const Highlights = () => {
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [added, setAdded] = useState({});
-    const { addItem } = useCart();
+    const products = getHighlights(6);
+    const [activePicker, setActivePicker] = useState(null);
+    const { addItem, setIsOpen } = useCart();
 
-    const handleAdd = (product) => {
-        addItem(product);
-        setAdded(prev => ({ ...prev, [product.id]: true }));
-        setTimeout(() => setAdded(prev => ({ ...prev, [product.id]: false })), 1500);
+    const handleConfirm = (product, steps, sabor) => {
+        addItem(product, steps, sabor);
+        setActivePicker(null);
+        setIsOpen(true);
     };
-
-    useEffect(() => {
-        const apiUrl = `${import.meta.env.VITE_API_URL}/api/products`;
-        fetch(apiUrl)
-            .then((res) => {
-                if (!res.ok) throw new Error(`Error HTTP ${res.status}`);
-                return res.json();
-            })
-            .then((data) => {
-                setProducts(Array.isArray(data) ? data : []);
-                setLoading(false);
-            })
-            .catch(() => setLoading(false));
-    }, []);
 
     return (
         <section id="productos" className="highlights container">
             <h2>Nuestros clásicos</h2>
-            {loading ? (
-                <div className="spinner-wrap"><div className="spinner"></div></div>
-            ) : products.length === 0 ? (
+            {products.length === 0 ? (
                 <p>⚠️ No hay productos disponibles.</p>
             ) : (
                 <>
                     <div className="grid">
-                        {products.slice(0, 6).map((p) => (
+                        {products.map((p) => (
                             <div key={p.id} className="card-with-tooltip">
                                 <article className="card">
                                     <img
-                                        src={p.imageUrl?.trim() ? p.imageUrl : "https://images.unsplash.com/photo-1617196034796-73e4c6d74c5d?q=80&w=800&auto=format&fit=crop"}
+                                        src={p.imageUrl?.trim() ? p.imageUrl : "/sorrentinos-nohechos.jpg"}
                                         alt={p.name}
                                     />
                                     <div className="card-content">
                                         <div>
                                             <h3>{p.name}</h3>
+                                            <span className="card-category">{CATEGORY_LABEL[p.category] || p.category}</span>
                                             <p>{p.description}</p>
                                         </div>
                                         <div className="card-bottom">
-                                            <p className="price">
-                                                ${parseFloat(p.price).toFixed(0)}
-                                                <span className="unit">
-                                                    {" / "}
-                                                    {p.unit == null || p.unit === "" ? "kg" : parseFloat(p.unit) === 1 ? "unidad" : isNaN(parseFloat(p.unit)) ? p.unit : `${p.unit} unidades`}
-                                                </span>
-                                            </p>
-                                            <button
-                                                className={`add-to-cart-btn${added[p.id] ? " added" : ""}`}
-                                                onClick={() => handleAdd(p)}
-                                            >
-                                                {added[p.id] ? "✓ Agregado" : "+ Agregar"}
-                                            </button>
+                                            {activePicker === p.id ? (
+                                                <QuantityPicker
+                                                    product={p}
+                                                    onConfirm={(steps, sabor) => handleConfirm(p, steps, sabor)}
+                                                    onCancel={() => setActivePicker(null)}
+                                                />
+                                            ) : (
+                                                <>
+                                                    <p className="price">
+                                                        ${parseFloat(p.price).toFixed(0)}
+                                                        <span className="unit">
+                                                            {" / "}
+                                                            {p.unit == null || p.unit === "" ? "kg" : parseFloat(p.unit) === 1 ? "unidad" : isNaN(parseFloat(p.unit)) ? p.unit : `${p.unit} unidades`}
+                                                        </span>
+                                                    </p>
+                                                    <button
+                                                        className="add-to-cart-btn"
+                                                        onClick={() => setActivePicker(p.id)}
+                                                    >
+                                                        + Agregar
+                                                    </button>
+                                                </>
+                                            )}
                                         </div>
                                     </div>
                                 </article>
