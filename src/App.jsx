@@ -3,16 +3,35 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Header from "./components/Header.jsx";
 import Catalog from "./pages/Catalog.jsx";
+import NotFound from "./pages/NotFound.jsx";
+import StyleGuide from "./pages/StyleGuide.jsx";
+import { CartProvider } from "./context/CartContext.jsx";
+import Cart from "./components/Cart.jsx";
 
 
 export default function App() {
     return (
-        <>
+        <CartProvider>
+            <>
             <Header />
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/productos" element={<Catalog />} />
+                <Route path="/guia-estilos" element={<StyleGuide />} />
+                <Route path="*" element={<NotFound />} />
             </Routes>
+
+            <Cart />
+
+            <a
+                href="https://wa.me/59897389216?text=Hola%2C%20quer%C3%ADa%20hacer%20un%20pedido%20%F0%9F%8D%9D%0A%0A"
+                target="_blank"
+                rel="noreferrer"
+                className="whatsapp-fab"
+                aria-label="Contactar por WhatsApp"
+            >
+                <i className="fab fa-whatsapp"></i>
+            </a>
 
             <footer id="contacto" className="footer">
                 <div className="container foot-grid">
@@ -20,7 +39,17 @@ export default function App() {
                         <h4>Contacto</h4>
                         <p>
                             <span className="icon"><i className="fas fa-phone"></i></span>
-                            Tel: <a href="tel:24801607">2480 1607</a>
+                            Tel: <a href="tel:+59824801607">+598 2480 1607</a>
+                        </p>
+                        <p>
+                            <span className="icon"><i className="fas fa-phone"></i></span>
+                            Tel: <a href="tel:+59824806502">+598 2480 6502</a>
+                        </p>
+                        <p>
+                            <span className="icon"><i className="fab fa-whatsapp"></i></span>
+                            <a href="https://wa.me/59897389216?text=Hola%2C%20quer%C3%ADa%20hacer%20un%20pedido%20%F0%9F%8D%9D%0A%0A" target="_blank" rel="noreferrer">
+                                WhatsApp: +598 97 389 216
+                            </a>
                         </p>
                         <p>
                             <span className="icon"><i className="fas fa-map-marker-alt"></i></span>
@@ -78,6 +107,7 @@ export default function App() {
                     © {new Date().getFullYear()} Fábrica de Pastas Milano — Todos los derechos reservados
                 </div>
             </footer>
-        </>
+            </>
+        </CartProvider>
     );
 }

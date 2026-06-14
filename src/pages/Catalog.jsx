@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 // 🔸 Constantes
 const CATEGORIES = [
@@ -41,6 +42,14 @@ export default function Catalog() {
     const [priceRange, setPriceRange] = useState(null);
     const [sortBy, setSortBy] = useState("name_asc");
     const [showFilters, setShowFilters] = useState(false);
+    const [added, setAdded] = useState({});
+    const { addItem } = useCart();
+
+    const handleAdd = (product) => {
+        addItem(product);
+        setAdded(prev => ({ ...prev, [product.id]: true }));
+        setTimeout(() => setAdded(prev => ({ ...prev, [product.id]: false })), 1500);
+    };
 
     useEffect(() => {
         const apiUrl = `${import.meta.env.VITE_API_URL}/api/products`;
@@ -95,14 +104,12 @@ export default function Catalog() {
             {/* 🔻 Panel de Filtros */}
             {showFilters && (
                 <section
-                    className="container"
+                    className="filter-panel"
                     style={{
                         display: "grid",
                         gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
                         gap: "24px",
-                        background: "#fafafa",
                         padding: "32px",
-                        borderBottom: "1px solid #ddd",
                     }}
                 >
                     <div>
@@ -182,7 +189,7 @@ export default function Catalog() {
             {/* 🔻 Grid de Productos */}
             <section className="container" style={{ padding: "48px 0" }}>
                 {loading ? (
-                    <p>⏳ Cargando productos...</p>
+                    <div className="spinner-wrap"><div className="spinner"></div></div>
                 ) : filteredProducts.length === 0 ? (
                     <p>⚠️ No hay productos que coincidan.</p>
                 ) : (
@@ -190,26 +197,30 @@ export default function Catalog() {
                         {filteredProducts.map((p) => (
                             <div key={p.id} className="card-with-tooltip">
                                 <article className="card">
-                                    <img src={p.imageUrl?.trim()} alt={p.name} />
+                                    <img
+                                        src={p.imageUrl?.trim() ? p.imageUrl : "https://images.unsplash.com/photo-1617196034796-73e4c6d74c5d?q=80&w=800&auto=format&fit=crop"}
+                                        alt={p.name}
+                                    />
                                     <div className="card-content">
-                                        <h3>{p.name}</h3>
-                                        <p>{p.description}</p>
-                                        <p className="price">
-                                            ${parseFloat(p.price).toFixed(0)}
-                                            <span className="unit">
-                                                {" "}
-                                                /{" "}
-                                                {p.unit == null || p.unit === "" ? (
-                                                    "kg"
-                                                ) : parseFloat(p.unit) === 1 ? (
-                                                    "unidad"
-                                                ) : isNaN(parseFloat(p.unit)) ? (
-                                                    p.unit // por si viene texto tipo “500gr”
-                                                ) : (
-                                                    `${p.unit} unidades`
-                                                )}
-                                            </span>
-                                        </p>
+                                        <div>
+                                            <h3>{p.name}</h3>
+                                            <p>{p.description}</p>
+                                        </div>
+                                        <div className="card-bottom">
+                                            <p className="price">
+                                                ${parseFloat(p.price).toFixed(0)}
+                                                <span className="unit">
+                                                    {" / "}
+                                                    {p.unit == null || p.unit === "" ? "kg" : parseFloat(p.unit) === 1 ? "unidad" : isNaN(parseFloat(p.unit)) ? p.unit : `${p.unit} unidades`}
+                                                </span>
+                                            </p>
+                                            <button
+                                                className={`add-to-cart-btn${added[p.id] ? " added" : ""}`}
+                                                onClick={() => handleAdd(p)}
+                                            >
+                                                {added[p.id] ? "✓ Agregado" : "+ Agregar"}
+                                            </button>
+                                        </div>
                                     </div>
                                 </article>
 

@@ -1,8 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [submenu, setSubmenu] = useState(null);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+    const [dark, setDark] = useState(() => localStorage.getItem("theme") === "dark");
+
+    useEffect(() => {
+        const handler = () => setIsMobile(window.innerWidth <= 768);
+        window.addEventListener("resize", handler);
+        return () => window.removeEventListener("resize", handler);
+    }, []);
+
+    useEffect(() => {
+        document.documentElement.classList.toggle("dark", dark);
+        localStorage.setItem("theme", dark ? "dark" : "light");
+    }, [dark]);
 
     const categories = {
         Pastas: {
@@ -24,8 +37,6 @@ export default function Header() {
         Bebidas: ["Refrescos", "Aguas", "Vinos"],
     };
 
-    const isMobile = window.innerWidth <= 768;
-
     return (
         <header className="nav">
             <div className="nav-inner">
@@ -37,9 +48,12 @@ export default function Header() {
                         </button>
                         <div className="brand">
                             <a href="/">
-                                <img src="/milano-pastas-logo-black.jpg" alt="Milano Pastas" />
+                                <img src={dark ? "/milano-pastas-logo-inverted.jpg" : "/milano-pastas-logo.jpg"} alt="Milano Pastas" />
                             </a>
                         </div>
+                        <button className="theme-toggle" onClick={() => setDark(d => !d)} aria-label="Cambiar tema">
+                            <i className={`fas fa-${dark ? "sun" : "moon"}`}></i>
+                        </button>
 
                         <div className={`mobile-menu-overlay ${menuOpen ? "open" : ""}`}>
                             {submenu ? (
@@ -106,7 +120,9 @@ export default function Header() {
                     <>
                         {/* 🔸 Modo desktop */}
                         <div className="brand">
-                            <a href="/"><img src="/milano-pastas-logo-black.jpg" alt="Milano Pastas" /></a>
+                            <a href="/">
+                                <img src={dark ? "/milano-pastas-logo-inverted.jpg" : "/milano-pastas-logo.jpg"} alt="Milano Pastas" />
+                            </a>
                         </div>
 
                         <ul className="nav-links">
@@ -143,6 +159,9 @@ export default function Header() {
                             >
                                 Instagram
                             </a>
+                            <button className="theme-toggle" onClick={() => setDark(d => !d)} aria-label="Cambiar tema">
+                                <i className={`fas fa-${dark ? "sun" : "moon"}`}></i>
+                            </button>
                         </ul>
                     </>
                 )}
